@@ -1,8 +1,5 @@
 $(document).ready(function () {
     $("#calculate").on("click", function () {
-        const $out = $("#out");
-        $out.text("");
-
         const entry = parseFloat($("#entry").val());
         const sl = parseFloat($("#sl").val());
         const tp = parseFloat($("#tp").val());
@@ -30,6 +27,8 @@ $(document).ready(function () {
             `RR: 1: ${rMultiple.toFixed(2)}`
         );
 
+        const $out = $("#out");
+        $out.text("");
         outputEntries.forEach((e) => $out.append(e));
     });
 });
