@@ -14,55 +14,45 @@ const isValidPercentage = (input) => {
 };
 
 // Function to format money value
-const pennyFormatter = (value) => `${value}p`;
+const pennyFormatter = (value) => `${new Intl.NumberFormat('en-US').format(value.money())}p`;
 
-const poundFormatter = (value) => `£${value}`;
+const poundFormatter = (value) => `£${new Intl.NumberFormat('en-US').format(value.money())}`;
 
 // Function to format percentage value
 const percentageFormatter = (value) => `${value}%`;
 
-// Function to calculate risk, reward, and rMultiple
-const calculateRiskReward = (entry, sl, tp) => {
+// Extractor function for floating-point values
+const floatExtractor = (id) => parseFloat($(`#${id}`).val().trim());
+
+// Extractor function for integer values
+const intExtractor = (id) => parseInt($(`#${id}`).val().trim(), 10);
+
+// Function to calculate shares to buy based on entry price, stop loss price, investment amount, and max risk percentage
+const calculateSharesToBuy = (entry, sl, investment, maxRisk) => {
     const risk = entry - sl;
-    const reward = tp - entry;
-    const rMultiple = reward / risk;
-    return {risk, reward, rMultiple};
-};
+    const riskAmount = (risk / entry) * investment;
+    const sharesToBuy = riskAmount / (entry * (maxRisk / 100));
+    return Math.floor(sharesToBuy);
+}
 
-// Function to validate input fields
-const validateInputs = (inputObjects) => {
-    const errors = {};
-
-    inputObjects.forEach((inputObject, index) => {
-        const value = inputObject.value.trim();
-        const validator = inputObject.validator || isValidDecimal;
-
-        if (!validator(value)) {
-            errors[`input${index}`] = inputObject.error;
-        }
-    });
-
-    return errors;
-};
-
-// Function to format value using formatter function
-const formatValue = (value, formatter) => {
-    return formatter(value);
-};
+// Function to calculate estimated investment based on entry price and shares to buy
+const calculateEstimatedInvestment = (entry, sharesToBuy) => (entry * sharesToBuy) / 100;
 
 // Extend Number prototype to include a money method
 Number.prototype.money = function () {
-    return `${this.toFixed(2)}p`;
+    return this.toFixed(2);
 };
 
 // Export functions
 window.isValidDecimal = isValidDecimal;
 window.isValidMoneyAmount = isValidMoneyAmount;
 window.isValidPercentage = isValidPercentage;
-window.moneyFormatter = pennyFormatter;
+window.pennyFormatter = pennyFormatter;
+window.poundFormatter = poundFormatter;
 window.percentageFormatter = percentageFormatter;
-window.calculateRiskReward = calculateRiskReward;
-window.validateInputs = validateInputs;
-window.formatValue = formatValue;
+window.floatExtractor = floatExtractor;
+window.intExtractor = intExtractor;
+window.calculateSharesToBuy = calculateSharesToBuy;
+window.calculateEstimatedInvestment = calculateEstimatedInvestment;
 window.money = () => {
 };

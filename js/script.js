@@ -1,8 +1,3 @@
-// Custom formatter function for money values
-Number.prototype.money = function () {
-    return this.toFixed(2);
-};
-
 $(document).ready(function () {
     $("#calculate").on("click", function () {
         const inputObjects = [
@@ -108,7 +103,7 @@ $(document).ready(function () {
             estimatedInvestment = calculateEstimatedInvestment(entry, sharesToBuy);
 
             outputEntries.push(`<div class="text-info ">Shares to buy: ${sharesToBuy}</div>`);
-            outputEntries.push(`<div class="text-info ">Estimated Investment: £${estimatedInvestment.money()}</div>`);
+            outputEntries.push(`<div class="text-info ">Estimated Investment: ${poundFormatter(estimatedInvestment)}</div>`);
         }
 
         // Display output
@@ -116,41 +111,4 @@ $(document).ready(function () {
         $out.empty();
         outputEntries.forEach((e) => $out.append(e));
     });
-
-    // Extractor function for floating-point values
-    function floatExtractor(id) {
-        return parseFloat($(`#${id}`).val().trim());
-    }
-
-    // Extractor function for integer values
-    function intExtractor(id) {
-        return parseInt($(`#${id}`).val().trim(), 10);
-    }
-
-    // Custom formatter function for money values
-    function pennyFormatter(value) {
-        return value.money() + 'p';
-    }
-
-    function poundFormatter(value) {
-        return value.money();
-    }
-
-    // Custom formatter function for percentage values
-    function percentageFormatter(value) {
-        return value + '%';
-    }
-
-    // Function to calculate shares to buy based on entry price, stop loss price, investment amount, and max risk percentage
-    function calculateSharesToBuy(entry, sl, investment, maxRisk) {
-        const risk = entry - sl;
-        const riskAmount = (risk / entry) * investment;
-        const sharesToBuy = riskAmount / (entry * (maxRisk / 100));
-        return Math.floor(sharesToBuy);
-    }
-
-    // Function to calculate estimated investment based on entry price and shares to buy
-    function calculateEstimatedInvestment(entry, sharesToBuy) {
-        return (entry * sharesToBuy) / 100;
-    }
 });
