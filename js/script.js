@@ -106,9 +106,9 @@ $(document).ready(function () {
             outputEntries.push(`<div class="text-info ">Estimated Investment: ${poundFormatter(estimatedInvestment)}</div>`);
         }
 
-        // Display output
         const $out = $("#out");
         $out.empty();
+        $out.addClass("border border-success-subtle rounded p-3")
         outputEntries.forEach((e) => $out.append(e));
     });
 });
