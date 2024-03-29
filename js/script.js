@@ -8,15 +8,11 @@ $(document).ready(function () {
         const tp = parseFloat($("#tp").val());
 
         const risk = entry - sl;
-        const riskOut = `Risk: ${risk.toFixed(2)}p (${((risk / entry) * 100).toFixed(2)}%)`;
-
         const reward = tp - entry;
-        const rewardOut = `Reward: ${reward.toFixed(2)}p (${((reward / entry) * 100).toFixed(2)}%)`;
-
         const rMultiple = reward / risk;
-        const rMultipleOut = `RR: 1: ${rMultiple.toFixed(2)}`;
 
         const br = "<br />";
+
         const outputEntries = [];
         outputEntries.push(
             `Entry: ${entry}p`,
@@ -26,13 +22,14 @@ $(document).ready(function () {
             `TP: ${tp}p`,
             br,
             br,
-            riskOut,
+            `Risk: ${risk.toFixed(2)}p (${((risk / entry) * 100).toFixed(2)}%)`,
             br,
-            rewardOut,
+            `Reward: ${reward.toFixed(2)}p (${((reward / entry) * 100).toFixed(2)}%)`,
             br,
             br,
-            rMultipleOut
+            `RR: 1: ${rMultiple.toFixed(2)}`
         );
+
         outputEntries.forEach((e) => $out.append(e));
     });
 });
