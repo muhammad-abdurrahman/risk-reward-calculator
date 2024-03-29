@@ -2,76 +2,82 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Risk/Reward Calculator</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-    crossorigin="anonymous"></script>
-  <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"
-    integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Risk/Reward Calculator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+            crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"
+            integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
 </head>
 
 <body>
-  <div class="container mt-5">
+<div class="container mt-5">
     <h1> Risk/Reward Calculator </h1>
-    <div class="row w-50">
-      <div class="input-group mb-3">
-        <input type="text" class="form-control" id="entry" placeholder="Entry price (p)"
-          aria-label="Entry price in pence">
-      </div>
+    <div class="row">
+        <div class="input-group mb-3">
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="entry" placeholder="Entry price (p)"
+                       aria-label="Entry price in pence">
+            </div>
+        </div>
     </div>
-    <div class="row w-50">
-      <div class="input-group mb-3">
-        <input type="text" class="form-control" id="sl" placeholder="Stop loss price (p)"
-          aria-label="Stop loss price in pence">
-      </div>
+    <div class="row">
+        <div class="input-group mb-3">
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="sl" placeholder="Stop loss price (p)"
+                       aria-label="Stop loss price in pence">
+            </div>
+        </div>
     </div>
-    <div class="row w-50">
-      <div class="input-group mb-3">
-        <input type="text" class="form-control" id="tp" placeholder="Target price (p)"
-          aria-label="Target price in pence">
-      </div>
+    <div class="row">
+        <div class="input-group mb-3">
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="tp" placeholder="Target price (p)"
+                       aria-label="Target price in pence">
+            </div>
+        </div>
     </div>
     <button type="button" class="btn btn-primary mb-3" id="calculate">Calculate</button>
     <p class="text-start" id="out"></p>
-  </div>
-  <script>
+</div>
+<script>
     $(document).ready(function () {
-      $("#calculate").on("click", function () {
-        var entry = parseFloat($("#entry").val());
-        var sl = parseFloat($("#sl").val());
-        var tp = parseFloat($("#tp").val());
+        $("#calculate").on("click", function () {
+            var entry = parseFloat($("#entry").val());
+            var sl = parseFloat($("#sl").val());
+            var tp = parseFloat($("#tp").val());
 
-        var risk = entry - sl;
-        var riskOut = "Risk: " + risk.toFixed(2) + "p (" + ((risk / entry) * 100).toFixed(2) + "%)";
+            var risk = entry - sl;
+            var riskOut = "Risk: " + risk.toFixed(2) + "p (" + ((risk / entry) * 100).toFixed(2) + "%)";
 
-        var reward = tp - entry;
-        var rewardOut = "Reward: " + reward.toFixed(2) + "p (" + ((reward / entry) * 100).toFixed(2) + "%)";
+            var reward = tp - entry;
+            var rewardOut = "Reward: " + reward.toFixed(2) + "p (" + ((reward / entry) * 100).toFixed(2) + "%)";
 
-        var rMultiple = reward / risk;
-        var rMultipleOut = "RR: 1:" + rMultiple.toFixed(2);
+            var rMultiple = reward / risk;
+            var rMultipleOut = "RR: 1:" + rMultiple.toFixed(2);
 
-        var br = "<br />";
-        $("#out").append("Entry: " + entry + "p");
-        $("#out").append(br);
-        $("#out").append("SL: " + sl + "p");
-        $("#out").append(br);
-        $("#out").append("TP: " + tp + "p");
-        $("#out").append(br);
-        $("#out").append(br);
-        $("#out").append(riskOut);
-        $("#out").append(br);
-        $("#out").append(rewardOut);
-        $("#out").append(br);
-        $("#out").append(br);
-        $("#out").append(rMultipleOut);
-      });
+            var br = "<br />";
+            $("#out").append("Entry: " + entry + "p");
+            $("#out").append(br);
+            $("#out").append("SL: " + sl + "p");
+            $("#out").append(br);
+            $("#out").append("TP: " + tp + "p");
+            $("#out").append(br);
+            $("#out").append(br);
+            $("#out").append(riskOut);
+            $("#out").append(br);
+            $("#out").append(rewardOut);
+            $("#out").append(br);
+            $("#out").append(br);
+            $("#out").append(rMultipleOut);
+        });
     });
-  </script>
+</script>
 </body>
 
 </html>
