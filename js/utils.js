@@ -14,9 +14,9 @@ const isValidPercentage = (input) => {
 };
 
 // Function to format money value
-const pennyFormatter = (value) => `${new Intl.NumberFormat('en-US').format(value.money())}p`;
+const pennyFormatter = (value) => `${new Intl.NumberFormat('en-US').format(value)}p`;
 
-const poundFormatter = (value) => `£${new Intl.NumberFormat('en-US').format(value.money())}`;
+const poundFormatter = (value) => `£${new Intl.NumberFormat('en-US').format(value)}`;
 
 // Function to format percentage value
 const percentageFormatter = (value) => `${value}%`;
@@ -28,15 +28,17 @@ const floatExtractor = (id) => parseFloat($(`#${id}`).val().trim());
 const intExtractor = (id) => parseInt($(`#${id}`).val().trim(), 10);
 
 // Function to calculate shares to buy based on entry price, stop loss price, investment amount, and max risk percentage
-const calculateSharesToBuy = (entry, sl, investment, maxRisk) => {
+const calculateSharesToBuy = (entry, sl, maxInvestment, maxRisk) => {
     const risk = entry - sl;
-    const riskAmount = (risk / entry) * investment;
-    const sharesToBuy = riskAmount / (entry * (maxRisk / 100));
+    const maxRiskAmount = maxInvestment * (maxRisk / 100);
+    const sharesToBuy = Math.min(maxRiskAmount / risk, maxInvestment / entry);
     return Math.floor(sharesToBuy);
-}
+};
 
 // Function to calculate estimated investment based on entry price and shares to buy
-const calculateEstimatedInvestment = (entry, sharesToBuy) => (entry * sharesToBuy) / 100;
+const calculateEstimatedInvestment = (entry, sharesToBuy) => (entry * sharesToBuy);
+
+const calculateEstimatedRisk = (estimatedInvestment, riskPercent) => estimatedInvestment * (riskPercent / 100);
 
 // Extend Number prototype to include a money method
 Number.prototype.money = function () {
@@ -54,5 +56,6 @@ window.floatExtractor = floatExtractor;
 window.intExtractor = intExtractor;
 window.calculateSharesToBuy = calculateSharesToBuy;
 window.calculateEstimatedInvestment = calculateEstimatedInvestment;
+window.calculateEstimatedRisk = calculateEstimatedRisk;
 window.money = () => {
 };
