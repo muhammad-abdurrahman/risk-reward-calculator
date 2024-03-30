@@ -4,8 +4,8 @@ $(document).ready(function () {
             {
                 id: "entry",
                 label: "Entry",
-                isValid: isValidDecimal,
-                error: "- Please provide a valid Entry price.",
+                isValid: isValidMoneyAmount,
+                error: "- Please provide a valid Entry price (> 0.00).",
                 extract: floatExtractor,
                 format: pennyFormatter,
                 doubleSpace: false
@@ -13,8 +13,8 @@ $(document).ready(function () {
             {
                 id: "sl",
                 label: "SL",
-                isValid: isValidDecimal,
-                error: "- Please provide a valid SL price.",
+                isValid: isValidMoneyAmount,
+                error: "- Please provide a valid SL price (> 0.00).",
                 extract: floatExtractor,
                 format: pennyFormatter,
                 doubleSpace: false
@@ -22,8 +22,8 @@ $(document).ready(function () {
             {
                 id: "tp",
                 label: "TP",
-                isValid: isValidDecimal,
-                error: "- Please provide a valid TP price.",
+                isValid: isValidMoneyAmount,
+                error: "- Please provide a valid TP price (> 0.00).",
                 extract: floatExtractor,
                 format: pennyFormatter,
                 doubleSpace: true
@@ -37,7 +37,7 @@ $(document).ready(function () {
                 id: "maxInvestment",
                 label: "Max Investment",
                 isValid: isValidMoneyAmount,
-                error: "- Please provide a valid Max Investment amount.",
+                error: "- Please provide a valid Max Investment amount (> 0.00).",
                 extract: floatExtractor,
                 format: poundFormatter,
                 doubleSpace: false
@@ -46,7 +46,7 @@ $(document).ready(function () {
                 id: "maxRisk",
                 label: "Max Risk",
                 isValid: isValidPercentage,
-                error: "- Please provide a valid Max Risk percentage.",
+                error: "- Please provide a valid Max Risk percentage (0 < amount <= 100).",
                 extract: intExtractor,
                 format: percentageFormatter,
                 doubleSpace: true

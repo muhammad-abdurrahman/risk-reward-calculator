@@ -5,12 +5,12 @@ const isValidDecimal = (input) => {
 
 // Function to validate money amount
 const isValidMoneyAmount = (input) => {
-    return /^\d+(\.\d{1,2})?$/.test(input);
+    return /^\d+(\.\d{1,2})?$/.test(input) && input > 0;
 };
 
 // Function to validate percentage
 const isValidPercentage = (input) => {
-    return /^\d+(\.\d{1,2})?$/.test(input) && parseFloat(input) <= 100;
+    return /^\d+(\.\d{1,2})?$/.test(input) && parseFloat(input) <= 100 && parseFloat(input) > 0;
 };
 
 // Function to format money value
