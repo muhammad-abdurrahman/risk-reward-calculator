@@ -46,8 +46,8 @@ $(document).ready(function () {
                 id: "maxRisk",
                 label: "Max Risk",
                 isValid: isValidPercentage,
-                error: "- Please provide a valid Max Risk percentage (0 < amount <= 100).",
-                extract: intExtractor,
+                error: "- Please provide a valid Max Risk percentage (0.00 < amount <= 100.00) and expressed in <=2dp.",
+                extract: floatExtractor,
                 format: percentageFormatter,
                 doubleSpace: true
             });
