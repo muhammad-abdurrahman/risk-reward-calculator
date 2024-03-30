@@ -113,4 +113,10 @@ $(document).ready(function () {
         $out.addClass("border border-success-subtle rounded p-3")
         outputEntries.forEach((e) => $out.append(e));
     });
+    $("#clear").on("click", function () {
+        $(":input").val("");
+        const $out = $("#out");
+        $out.empty();
+        $out.removeClass("border border-success-subtle rounded p-3");
+    });
 });
