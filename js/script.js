@@ -107,7 +107,7 @@ $(document).ready(function () {
 
             outputEntries.push(`<div class="text-info double-space-before"><i>Shares to buy: ${sharesToBuy}</i></div>`);
             outputEntries.push(`<div class="text-info"><i>Estimated Investment: ${poundFormatter(estimatedInvestment)}</i></div>`);
-            outputEntries.push(`<div class="text-info"><i>Estimated Risk: ${poundFormatter(estimatedRisk)} (<= ${poundFormatter(maxRisk / 100 * maxInvestment)} = ${maxRisk}% of ${poundFormatter(maxInvestment)})</i></div>`);
+            outputEntries.push(`<div class="text-info"><i>Estimated Risk: ${poundFormatter(estimatedRisk)} (<= ${poundFormatter(maxRisk / 100 * maxInvestment)} i.e. ${maxRisk}% of ${poundFormatter(maxInvestment)})</i></div>`);
             outputEntries.push(`<div class="text-info"><i>Estimated Reward: ${poundFormatter(estimatedReward)} (${percentageFormatter(rewardPercent)} of ${poundFormatter(estimatedInvestment)})</i></div>`);
         }
 
