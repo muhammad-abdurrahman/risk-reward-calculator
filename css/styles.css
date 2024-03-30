@@ -3,7 +3,11 @@
     margin: 0 auto;
 }
 
-.double-space {
+.double-space-before {
+    margin-top: 20px;
+}
+
+.double-space-after {
     margin-bottom: 20px;
 }
 

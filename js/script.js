@@ -81,7 +81,7 @@ $(document).ready(function () {
 
         const outputEntries = inputObjects.map(({label, format, doubleSpace}, index) => {
             const value = format(inputValues[index]);
-            const spacing = doubleSpace ? ' double-space' : '';
+            const spacing = doubleSpace ? ' double-space-after' : '';
             return `<div class="text-secondary ${spacing}">${label}: ${value}</div>`;
         });
 
@@ -97,7 +97,7 @@ $(document).ready(function () {
         outputEntries.push(`<div class="text-danger">Risk: ${risk.money()}p (${riskPercent.money()}%)</div>`);
         outputEntries.push(`<div class="text-success">Reward: ${reward.money()}p (${rewardPercent.money()}%)</div>`);
         let rMultipleColor = rMultiple < 1 ? 'text-danger' : 'text-dark';
-        outputEntries.push(`<div class="${rMultipleColor} double-space"><strong>RR: 1:${rMultiple.money()}</strong></div>`);
+        outputEntries.push(`<div class="${rMultipleColor}"><strong>RR: 1:${rMultiple.money()}</strong></div>`);
 
         if (maxInvestment && maxRisk) {
             let sharesToBuy = calculateSharesToBuy(entry, sl, maxInvestment, maxRisk);
@@ -105,10 +105,10 @@ $(document).ready(function () {
             let estimatedRisk = calculateInvestmentChange(estimatedInvestment, riskPercent);
             let estimatedReward = calculateInvestmentChange(estimatedInvestment, rewardPercent);
 
-            outputEntries.push(`<div class="text-info "><i>Shares to buy: ${sharesToBuy}</i></div>`);
-            outputEntries.push(`<div class="text-info "><i>Estimated Investment: ${poundFormatter(estimatedInvestment)}</i></div>`);
-            outputEntries.push(`<div class="text-info "><i>Estimated Risk: ${poundFormatter(estimatedRisk)} (<= ${poundFormatter(maxRisk / 100 * maxInvestment)} = ${maxRisk}% of ${poundFormatter(maxInvestment)})</i></div>`);
-            outputEntries.push(`<div class="text-info "><i>Estimated Reward: ${poundFormatter(estimatedReward)} (${percentageFormatter(rewardPercent)} of ${poundFormatter(estimatedInvestment)})</i></div>`);
+            outputEntries.push(`<div class="text-info double-space-before"><i>Shares to buy: ${sharesToBuy}</i></div>`);
+            outputEntries.push(`<div class="text-info"><i>Estimated Investment: ${poundFormatter(estimatedInvestment)}</i></div>`);
+            outputEntries.push(`<div class="text-info"><i>Estimated Risk: ${poundFormatter(estimatedRisk)} (<= ${poundFormatter(maxRisk / 100 * maxInvestment)} = ${maxRisk}% of ${poundFormatter(maxInvestment)})</i></div>`);
+            outputEntries.push(`<div class="text-info"><i>Estimated Reward: ${poundFormatter(estimatedReward)} (${percentageFormatter(rewardPercent)} of ${poundFormatter(estimatedInvestment)})</i></div>`);
         }
 
         const $out = $("#out");
