@@ -37,7 +37,7 @@ $(document).ready(function () {
                 id: "maxInvestment",
                 label: "Max Investment",
                 isValid: isValidMoneyAmount,
-                error: "- Please provide a valid Max Investment amount (> 0.00).",
+                error: "- Please provide a valid Max Investment amount (> 0.00) and expressed in <=2dp.",
                 extract: floatExtractor,
                 format: poundFormatter,
                 doubleSpace: false
@@ -96,16 +96,18 @@ $(document).ready(function () {
 
         outputEntries.push(`<div class="text-danger">Risk: ${risk.money()}p (${riskPercent.money()}%)</div>`);
         outputEntries.push(`<div class="text-success">Reward: ${reward.money()}p (${rewardPercent.money()}%)</div>`);
-        outputEntries.push(`<div class="text-dark double-space">RR: 1:${rMultiple.money()}</div>`);
+        outputEntries.push(`<div class="text-dark double-space"><strong>RR: 1:${rMultiple.money()}</strong></div>`);
 
         if (maxInvestment && maxRisk) {
             let sharesToBuy = calculateSharesToBuy(entry, sl, maxInvestment, maxRisk);
             let estimatedInvestment = calculateEstimatedInvestment(entry, sharesToBuy);
-            let estimatedRisk = calculateEstimatedRisk(estimatedInvestment, riskPercent);
+            let estimatedRisk = calculateInvestmentChange(estimatedInvestment, riskPercent);
+            let estimatedReward = calculateInvestmentChange(estimatedInvestment, rewardPercent);
 
-            outputEntries.push(`<div class="text-info ">Shares to buy: ${sharesToBuy}</div>`);
-            outputEntries.push(`<div class="text-info ">Estimated Investment: ${poundFormatter(estimatedInvestment)}</div>`);
-            outputEntries.push(`<div class="text-info ">Estimated Risk: ${poundFormatter(estimatedRisk)} (<= ${poundFormatter(maxRisk/100 * maxInvestment)} = ${maxRisk}% of ${poundFormatter(maxInvestment)})</div>`);
+            outputEntries.push(`<div class="text-info "><i>Shares to buy: ${sharesToBuy}</i></div>`);
+            outputEntries.push(`<div class="text-info "><i>Estimated Investment: ${poundFormatter(estimatedInvestment)}</i></div>`);
+            outputEntries.push(`<div class="text-info "><i>Estimated Risk: ${poundFormatter(estimatedRisk)} (<= ${poundFormatter(maxRisk/100 * maxInvestment)} = ${maxRisk}% of ${poundFormatter(maxInvestment)})</i></div>`);
+            outputEntries.push(`<div class="text-info "><i>Estimated Reward: ${poundFormatter(estimatedReward)} (${percentageFormatter(rewardPercent)} of ${poundFormatter(estimatedInvestment)})</i></div>`);
         }
 
         const $out = $("#out");
@@ -113,6 +115,7 @@ $(document).ready(function () {
         $out.addClass("border border-success-subtle rounded p-3")
         outputEntries.forEach((e) => $out.append(e));
     });
+
     $("#clear").on("click", function () {
         $(":input").val("");
         const $out = $("#out");

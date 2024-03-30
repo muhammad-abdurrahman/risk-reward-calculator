@@ -19,7 +19,13 @@ const pennyFormatter = (value) => `${new Intl.NumberFormat('en-US').format(value
 const poundFormatter = (value) => `£${new Intl.NumberFormat('en-US').format(value)}`;
 
 // Function to format percentage value
-const percentageFormatter = (value) => `${value}%`;
+const percentageFormatter = (value) => `${new Intl.NumberFormat(
+    'en-US',
+    {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 2,
+    }
+).format(value)}%`;
 
 // Extractor function for floating-point values
 const floatExtractor = (id) => parseFloat($(`#${id}`).val().trim());
@@ -38,7 +44,7 @@ const calculateSharesToBuy = (entry, sl, maxInvestment, maxRisk) => {
 // Function to calculate estimated investment based on entry price and shares to buy
 const calculateEstimatedInvestment = (entry, sharesToBuy) => (entry * sharesToBuy);
 
-const calculateEstimatedRisk = (estimatedInvestment, riskPercent) => estimatedInvestment * (riskPercent / 100);
+const calculateInvestmentChange = (investment, percent) => investment * (percent / 100);
 
 // Extend Number prototype to include a money method
 Number.prototype.money = function () {
@@ -56,6 +62,6 @@ window.floatExtractor = floatExtractor;
 window.intExtractor = intExtractor;
 window.calculateSharesToBuy = calculateSharesToBuy;
 window.calculateEstimatedInvestment = calculateEstimatedInvestment;
-window.calculateEstimatedRisk = calculateEstimatedRisk;
+window.calculateInvestmentChange = calculateInvestmentChange;
 window.money = () => {
 };
