@@ -74,8 +74,13 @@ $(document).ready(function () {
         });
 
         if (Object.keys(validationErrors).length > 0) {
-            const errorMessage = Object.values(validationErrors).join("\n");
-            alert("Please address the following:\n" + errorMessage);
+            $('#errorOut').empty();
+            Object.values(validationErrors).forEach((error) => {
+                const errorElement = $('<p>').addClass('text-danger m-1').text(error);
+                $('#errorOut').append(errorElement);
+            });
+
+            $('#errorOutputModal').modal('show');
             return;
         }
 
