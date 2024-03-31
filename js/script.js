@@ -141,7 +141,8 @@ $(document).ready(function () {
     });
 
     $("#copyBtn").on("click", function () {
-        const copiedText = extractText(document.getElementById("out"));
+        const copiedText = extractText(document.getElementById("out"))
+            .replace(/\n$/, "");
 
         // Copy the text to the clipboard
         navigator.clipboard.writeText(copiedText).then(function () {
