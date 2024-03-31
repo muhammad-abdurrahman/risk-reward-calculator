@@ -122,6 +122,8 @@ $(document).ready(function () {
         outputEntries.forEach((e) => $out.append(e));
     });
 
+    $('[data-bs-toggle="tooltip"]').tooltip()
+
     $('input').click(function () {
         this.select();
     });
