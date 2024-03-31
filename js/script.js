@@ -122,6 +122,7 @@ $(document).ready(function () {
         outputEntries.forEach((e) => $out.append(e));
 
         $("#copyBtn").removeClass("visually-hidden");
+        $("#copyBtn").tooltip('dispose');
     });
 
     $('[data-bs-toggle="tooltip"]').tooltip()
