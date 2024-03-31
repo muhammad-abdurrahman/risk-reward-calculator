@@ -14,9 +14,15 @@ const isValidPercentage = (input) => {
 };
 
 // Function to format money value
-const pennyFormatter = (value) => `${new Intl.NumberFormat('en-US').format(value)}p`;
+const pennyFormatter = (value) => `${new Intl.NumberFormat('en-US', {
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 2,
+}).format(value)}p`;
 
-const poundFormatter = (value) => `£${new Intl.NumberFormat('en-US').format(value)}`;
+const poundFormatter = (value) => `£${new Intl.NumberFormat('en-US', {
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 2,
+}).format(value)}`;
 
 // Function to format percentage value
 const percentageFormatter = (value) => `${new Intl.NumberFormat(
@@ -37,8 +43,8 @@ const intExtractor = (id) => parseInt($(`#${id}`).val().trim(), 10);
 const calculateSharesToBuy = (entry, sl, maxInvestment, maxRisk) => {
     const risk = entry - sl;
     const maxRiskAmount = maxInvestment * (maxRisk / 100);
-    const sharesToBuy = Math.min(maxRiskAmount / risk, maxInvestment / entry);
-    return Math.floor(sharesToBuy)*100;
+    const sharesToBuy = Math.min(maxRiskAmount / (risk / 100), maxInvestment / (entry / 100));
+    return Math.floor(sharesToBuy);
 };
 
 // Function to calculate estimated investment based on entry price and shares to buy
