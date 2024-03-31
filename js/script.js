@@ -122,6 +122,10 @@ $(document).ready(function () {
         outputEntries.forEach((e) => $out.append(e));
     });
 
+    $('input').click(function () {
+        this.select();
+    });
+
     $("#clear").on("click", function () {
         $(":input").val("");
         const $out = $("#out");
