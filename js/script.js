@@ -144,7 +144,7 @@ $(document).ready(function () {
         const copiedText = extractText(document.getElementById("out"));
 
         // Copy the text to the clipboard
-        navigator.clipboard.writeText(copiedText).then(function() {
+        navigator.clipboard.writeText(copiedText).then(function () {
             // Show tooltip indicating successful copy
             $("#copyBtn").tooltip('dispose');
             $("#copyBtn").tooltip({
@@ -152,10 +152,10 @@ $(document).ready(function () {
                 placement: "top"
             });
             $("#copyBtn").tooltip('show');
-            setTimeout(function() {
+            setTimeout(function () {
                 $("#copyBtn").tooltip('hide');
             }, 2000);
-        }, function(err) {
+        }, function (err) {
             // Show error message in modal
             $("#copyErrorModalBody").text("Error copying text: " + err);
             $("#copyErrorModal").modal('show');
@@ -206,6 +206,5 @@ $(document).ready(function () {
 
         return result;
     }
-
 
 });
