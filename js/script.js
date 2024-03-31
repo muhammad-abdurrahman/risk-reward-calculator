@@ -120,6 +120,8 @@ $(document).ready(function () {
         $out.empty();
         $out.addClass("border border-success-subtle rounded p-3")
         outputEntries.forEach((e) => $out.append(e));
+
+        $("#copyBtn").removeClass("visually-hidden");
     });
 
     $('[data-bs-toggle="tooltip"]').tooltip()
@@ -133,5 +135,76 @@ $(document).ready(function () {
         const $out = $("#out");
         $out.empty();
         $out.removeClass("border border-success-subtle rounded p-3");
+        $("#copyBtn").addClass("visually-hidden");
+        $("#copyBtn").tooltip('dispose');
     });
+
+    $("#copyBtn").on("click", function () {
+        const copiedText = extractText(document.getElementById("out"));
+
+        // Copy the text to the clipboard
+        navigator.clipboard.writeText(copiedText).then(function() {
+            // Show tooltip indicating successful copy
+            $("#copyBtn").tooltip('dispose');
+            $("#copyBtn").tooltip({
+                title: "Text copied to clipboard",
+                placement: "top"
+            });
+            $("#copyBtn").tooltip('show');
+            setTimeout(function() {
+                $("#copyBtn").tooltip('hide');
+            }, 2000);
+        }, function(err) {
+            // Show error message in modal
+            $("#copyErrorModalBody").text("Error copying text: " + err);
+            $("#copyErrorModal").modal('show');
+        });
+    });
+
+    // $("#copyBtn").on("click", function () {
+    //     const copiedText = extractText(document.getElementById("out"));
+    //
+    //     // Simulate an error by rejecting the clipboard write promise
+    //     const error = new Error("Simulated copy error");
+    //     Promise.reject(error).then(function() {
+    //         // This block will not be executed because of the rejection
+    //     }, function(err) {
+    //         // Show error message in modal
+    //         $("#copyErrorModalBody").text("Error copying text: " + err.message);
+    //         $("#copyErrorModal").modal('show');
+    //     });
+    // });
+
+
+// Function to process DOM nodes recursively
+    function extractText(node) {
+        let result = "";
+
+        // Process text nodes
+        if (node.nodeType === Node.TEXT_NODE) {
+            result += node.textContent + "\n";
+        }
+
+        // Process element nodes
+        if (node.nodeType === Node.ELEMENT_NODE) {
+            // Check if the element has the class 'double-space-before'
+            if (node.classList.contains("double-space-before")) {
+                result += "\n";
+            }
+
+            // Process child nodes recursively
+            node.childNodes.forEach(child => {
+                result += extractText(child);
+            });
+
+            // Check if the element has the class 'double-space-after'
+            if (node.classList.contains("double-space-after")) {
+                result += "\n";
+            }
+        }
+
+        return result;
+    }
+
+
 });
