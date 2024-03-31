@@ -38,11 +38,11 @@ const calculateSharesToBuy = (entry, sl, maxInvestment, maxRisk) => {
     const risk = entry - sl;
     const maxRiskAmount = maxInvestment * (maxRisk / 100);
     const sharesToBuy = Math.min(maxRiskAmount / risk, maxInvestment / entry);
-    return Math.floor(sharesToBuy);
+    return Math.floor(sharesToBuy)*100;
 };
 
 // Function to calculate estimated investment based on entry price and shares to buy
-const calculateEstimatedInvestment = (entry, sharesToBuy) => (entry * sharesToBuy);
+const calculateEstimatedInvestment = (entry, sharesToBuy) => (entry / 100 * sharesToBuy);
 
 const calculateInvestmentChange = (investment, percent) => investment * (percent / 100);
 
