@@ -1,37 +1,34 @@
-// Function to validate decimal input
-const isValidDecimal = (input) => {
-    return input !== '' && !isNaN(input) && isFinite(input);
-};
-
-// Function to validate money amount
-const isValidMoneyAmount = (input) => {
-    return /^\d+(\.\d{1,2})?$/.test(input) && input > 0;
-};
-
-// Function to validate percentage
-const isValidPercentage = (input) => {
-    return /^\d+(\.\d{1,2})?$/.test(input) && parseFloat(input) <= 100 && parseFloat(input) > 0;
-};
-
-// Function to format money value
-const pennyFormatter = (value) => `${new Intl.NumberFormat('en-US', {
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 2,
-}).format(value)}p`;
-
-const poundFormatter = (value) => `£${new Intl.NumberFormat('en-US', {
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 2,
-}).format(value)}`;
-
-// Function to format percentage value
-const percentageFormatter = (value) => `${new Intl.NumberFormat(
+const NUMBER_FORMAT = new Intl.NumberFormat(
     'en-US',
     {
         minimumFractionDigits: 0,
         maximumFractionDigits: 2,
     }
-).format(value)}%`;
+);
+
+// Function to validate decimal input
+const isValidDecimal = (input) => {
+    return input !== '' && !isNaN(input) && isFinite(input);
+
+};
+// Function to validate money amount
+const isValidMoneyAmount = (input) => {
+    return /^\d+(\.\d{1,2})?$/.test(input) && input > 0;
+
+};
+// Function to validate percentage
+const isValidPercentage = (input) => {
+    return /^\d+(\.\d{1,2})?$/.test(input) && parseFloat(input) <= 100 && parseFloat(input) > 0;
+
+};
+// Function to format money value
+
+const pennyFormatter = (value) => `${NUMBER_FORMAT.format(value)}p`;
+
+const poundFormatter = (value) => `£${NUMBER_FORMAT.format(value)}`;
+// Function to format percentage value
+
+const percentageFormatter = (value) => `${NUMBER_FORMAT.format(value)}%`;
 
 // Extractor function for floating-point values
 const floatExtractor = (id) => parseFloat($(`#${id}`).val().trim());
@@ -54,7 +51,7 @@ const calculateInvestmentChange = (investment, percent) => investment * (percent
 
 // Extend Number prototype to include a money method
 Number.prototype.money = function () {
-    return this.toFixed(2);
+    return NUMBER_FORMAT.format(this);
 };
 
 // Export functions
