@@ -148,7 +148,7 @@ $(document).ready(function () {
             // Show tooltip indicating successful copy
             $("#copyBtn").tooltip('dispose');
             $("#copyBtn").tooltip({
-                title: "Text copied to clipboard",
+                title: "Copied to clipboard",
                 placement: "top"
             });
             $("#copyBtn").tooltip('show');
