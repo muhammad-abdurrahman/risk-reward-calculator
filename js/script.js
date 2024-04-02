@@ -176,39 +176,25 @@ $(document).ready(function () {
     //     });
     // });
 
-
     function extractText(node) {
         let result = "";
 
-        // Process text nodes
-        if (node.nodeType === Node.TEXT_NODE) {
-            result += node.textContent;
-            if (node.nextSibling?.nodeName?.toLowerCase() !== 'span') {
-                result += "\n";
-            }
-        }
-
-        // Process element nodes
-        if (node.nodeType === Node.ELEMENT_NODE) {
-            // Check if the element has the class 'double-space-before'
-            if (node.classList.contains("double-space-before")) {
-                result += "\n";
-            }
-
-            // Process child nodes recursively, skipping <span> elements
-            node.childNodes.forEach(child => {
-                if (child.nodeName.toLowerCase() !== 'span') {
-                    result += extractText(child);
-                } else {
-                    result += child.textContent; // Add span's text content directly
+        Array.from(node.children).forEach((child) => {
+            if (child.className.toLowerCase().includes("text-")) {
+                if (child.className.toLowerCase().includes("double-space-before")) {
+                    result += "\n";
                 }
-            });
-
-            // Check if the element has the class 'double-space-after'
-            if (node.classList.contains("double-space-after")) {
+                result += child.textContent + "\n";
+                if (child.className.toLowerCase().includes("double-space-after")) {
+                    result += "\n";
+                }
+            } else {
                 result += "\n";
+                Array.from(child.children).forEach((grandChild) => {
+                    result += grandChild.textContent + "\n";
+                });
             }
-        }
+        });
 
         return result;
     }
