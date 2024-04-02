@@ -30,7 +30,7 @@ $(document).ready(function () {
             }
         ];
 
-        const maxInvestment = $("#maxInvestment").val();
+        const maxInvestment = $("#maxInvestment").val().replace(/,/g, '');
         const maxRisk = $("#maxRisk").val();
         if (maxInvestment) {
             inputObjects.push({
@@ -143,6 +143,19 @@ $(document).ready(function () {
         $("#copyBtn").addClass("visually-hidden");
         $("#copyBtn").tooltip('dispose');
     });
+
+    $("#maxInvestment").on('input', function() {
+        const value = this.value.replace(/,/g, '');
+        if (!isValidDecimal(value)) {
+            return;
+        }
+        this.value = parseFloat(value).toLocaleString('en-US', {
+            style: 'decimal',
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 2
+        });
+    });
+
 
     $("#copyBtn").on("click", function () {
         const copiedText = extractText(document.getElementById("out"));
