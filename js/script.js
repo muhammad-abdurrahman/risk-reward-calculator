@@ -177,13 +177,15 @@ $(document).ready(function () {
     // });
 
 
-// Function to process DOM nodes recursively
     function extractText(node) {
         let result = "";
 
         // Process text nodes
         if (node.nodeType === Node.TEXT_NODE) {
-            result += node.textContent + "\n";
+            result += node.textContent;
+            if (node.nextSibling?.nodeName?.toLowerCase() !== 'span') {
+                result += "\n";
+            }
         }
 
         // Process element nodes
@@ -193,9 +195,13 @@ $(document).ready(function () {
                 result += "\n";
             }
 
-            // Process child nodes recursively
+            // Process child nodes recursively, skipping <span> elements
             node.childNodes.forEach(child => {
-                result += extractText(child);
+                if (child.nodeName.toLowerCase() !== 'span') {
+                    result += extractText(child);
+                } else {
+                    result += child.textContent; // Add span's text content directly
+                }
             });
 
             // Check if the element has the class 'double-space-after'
