@@ -112,8 +112,8 @@ $(document).ready(function () {
 
             outputEntries.push(`<div class="text-info double-space-before"><i>Shares to buy: ${sharesToBuy}</i></div>`);
             outputEntries.push(`<div class="text-info"><i>Estimated Investment: ${poundFormatter(estimatedInvestment)}</i></div>`);
-            outputEntries.push(`<div class="text-info"><i>Estimated Risk: ${poundFormatter(estimatedRisk)} (<= ${poundFormatter(maxRisk / 100 * maxInvestment)} i.e. ${maxRisk}% of ${poundFormatter(maxInvestment)})</i></div>`);
-            outputEntries.push(`<div class="text-info"><i>Estimated Reward: ${poundFormatter(estimatedReward)} (${percentageFormatter(rewardPercent)} of ${poundFormatter(estimatedInvestment)})</i></div>`);
+            outputEntries.push(`<div class="text-info"><i>Estimated Risk: <span class="text-danger">${poundFormatter(estimatedRisk)}</span> (<= ${poundFormatter(maxRisk / 100 * maxInvestment)} i.e. ${maxRisk}% of ${poundFormatter(maxInvestment)})</i></div>`);
+            outputEntries.push(`<div class="text-info"><i>Estimated Reward: <span class="text-success">${poundFormatter(estimatedReward)}</span> (${percentageFormatter(rewardPercent)} of ${poundFormatter(estimatedInvestment)})</i></div>`);
         }
 
         const $out = $("#out");
