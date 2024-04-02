@@ -33,6 +33,8 @@ const percentageFormatter = (value) => `${NUMBER_FORMAT.format(value)}%`;
 // Extractor function for floating-point values
 const floatExtractor = (id) => parseFloat($(`#${id}`).val().trim());
 
+const commaIgnoringFloatExtractor = (id) => parseFloat($(`#${id}`).val().replace(/,/g, '').trim());
+
 // Extractor function for integer values
 const intExtractor = (id) => parseInt($(`#${id}`).val().trim(), 10);
 
@@ -62,6 +64,7 @@ window.pennyFormatter = pennyFormatter;
 window.poundFormatter = poundFormatter;
 window.percentageFormatter = percentageFormatter;
 window.floatExtractor = floatExtractor;
+window.commaIgnoringFloatExtractor = commaIgnoringFloatExtractor;
 window.intExtractor = intExtractor;
 window.calculateSharesToBuy = calculateSharesToBuy;
 window.calculateEstimatedInvestment = calculateEstimatedInvestment;

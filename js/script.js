@@ -38,7 +38,7 @@ $(document).ready(function () {
                 label: "Max Investment",
                 isValid: isValidMoneyAmount,
                 error: "- Please provide a valid Max Investment amount (> 0.00) and expressed in <=2dp.",
-                extract: floatExtractor,
+                extract: commaIgnoringFloatExtractor,
                 format: poundFormatter,
                 doubleSpace: false
             });
