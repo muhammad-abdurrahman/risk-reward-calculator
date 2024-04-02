@@ -102,7 +102,7 @@ $(document).ready(function () {
         outputEntries.push(`<div class="text-danger">Risk: ${risk.money()}p (${riskPercent.money()}%)</div>`);
         outputEntries.push(`<div class="text-success">Reward: ${reward.money()}p (${rewardPercent.money()}%)</div>`);
         let rMultipleColor = rMultiple < 1 ? 'text-danger' : 'text-dark';
-        outputEntries.push(`<div class="${rMultipleColor}"><strong>RR: 1:${rMultiple.money()}</strong></div>`);
+        outputEntries.push(`<div class="${rMultipleColor}"><strong>R/R: 1:${rMultiple.money()}</strong></div>`);
 
         if (maxInvestment && maxRisk) {
             let sharesToBuy = calculateSharesToBuy(entry, sl, maxInvestment, maxRisk);
