@@ -29,14 +29,6 @@
                    data-bs-title="Stop loss price (p)">
         </div>
     </div>
-    <div class="row mb-3">
-        <label for="entry" class="col-sm-4 col-form-label">Target price (p)</label>
-        <div class="col-sm-8">
-            <input type="text" class="form-control" id="tp" placeholder=""
-                   aria-label="Target price in pence" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                   data-bs-title="Target price (p)">
-        </div>
-    </div>
     <div class="accordion mb-3" id="additionalInputAccordion">
         <div class="accordion-item bg-info-subtle">
             <h2 class="accordion-header" id="additionalInputHeading">
@@ -49,6 +41,15 @@
             <div id="additionalInputCollapse" class="accordion-collapse collapse"
                  aria-labelledby="additionalInputHeading" data-bs-parent="#additionalInputAccordion">
                 <div class="accordion-body">
+                    <div class="row mb-3">
+                        <label for="entry" class="col-sm-4 col-form-label">Target price (p)</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="tp" placeholder=""
+                                   aria-label="Target price in pence" data-bs-toggle="tooltip"
+                                   data-bs-placement="bottom"
+                                   data-bs-title="Target price (p)">
+                        </div>
+                    </div>
                     <div class="row mb-3">
                         <label for="entry" class="col-sm-4 col-form-label">Max Investment (£)</label>
                         <div class="col-sm-8">

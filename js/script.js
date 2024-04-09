@@ -18,8 +18,12 @@ $(document).ready(function () {
                 extract: floatExtractor,
                 format: pennyFormatter,
                 doubleSpace: false
-            },
-            {
+            }
+        ];
+
+        const tpInput = $("#tp").val();
+        if (tpInput) {
+            inputObjects.push({
                 id: "tp",
                 label: "TP",
                 isValid: isValidMoneyAmount,
@@ -27,8 +31,8 @@ $(document).ready(function () {
                 extract: floatExtractor,
                 format: pennyFormatter,
                 doubleSpace: true
-            }
-        ];
+            });
+        }
 
         const maxInvestment = $("#maxInvestment").val().replace(/,/g, '');
         const maxRisk = $("#maxRisk").val();
@@ -92,7 +96,7 @@ $(document).ready(function () {
 
         const entry = inputValues[0];
         const sl = inputValues[1];
-        const tp = inputValues[2];
+        const tp = tpInput;
         const risk = entry - sl;
         const riskPercent = (risk / entry) * 100;
         const reward = tp - entry;
@@ -107,29 +111,40 @@ $(document).ready(function () {
             {rMultiple: 3, space: true}
         ]
 
-        outputEntries.push(`<div class="text-secondary text-decoration-underline">Potential Targets:</div>`);
-        potentialTargets.forEach(({rMultiple, space}) => {
-            const spacing = space ? ' double-space-after' : '';
-            outputEntries.push(`<div class="text-secondary ${spacing}">${rMultiple}R: ${pennyFormatter(entry + (risk * rMultiple))}</div>`);
-        });
+        if (!tp) {
+            let space = maxInvestment ? '' : 'double-space-before';
+            outputEntries.push(`<div class="text-secondary text-decoration-underline ${space}">Potential Targets:</div>`);
+            potentialTargets.forEach(({rMultiple, space}) => {
+                const spacing = space ? ' double-space-after' : '';
+                outputEntries.push(`<div class="text-secondary ${spacing}">${rMultiple}R: ${pennyFormatter(entry + (risk * rMultiple))}</div>`);
+            });
+        }
 
         outputEntries.push(`<div class="text-danger">Risk: ${risk.money()}p (${riskPercent.money()}%)</div>`);
-        outputEntries.push(`<div class="text-success">Reward: ${reward.money()}p (${rewardPercent.money()}%)</div>`);
-        let rMultipleColor = rMultiple < 1 ? 'text-danger' : 'text-dark';
-        outputEntries.push(`<div class="${rMultipleColor}"><strong>R/R: 1:${rMultiple.money()}</strong></div>`);
+
+        if (tp) {
+            outputEntries.push(`<div class="text-success">Reward: ${reward.money()}p (${rewardPercent.money()}%)</div>`);
+            let rMultipleColor = rMultiple < 1 ? 'text-danger' : 'text-dark';
+            outputEntries.push(`<div class="${rMultipleColor}"><strong>R/R: 1:${rMultiple.money()}</strong></div>`);
+        }
 
         if (maxInvestment && maxRisk) {
             let sharesToBuy = calculateSharesToBuy(entry, sl, maxInvestment, maxRisk);
             let estimatedInvestment = calculateEstimatedInvestment(entry, sharesToBuy);
             let estimatedRisk = calculateInvestmentChange(estimatedInvestment, riskPercent);
-            let estimatedReward = calculateInvestmentChange(estimatedInvestment, rewardPercent);
+
+            let estimatedRewardOut = '';
+            if (tp) {
+                let estimatedReward = calculateInvestmentChange(estimatedInvestment, rewardPercent);
+                estimatedRewardOut = `<div class="text-info"><i>Estimated Reward: <span class="text-success">${poundFormatter(estimatedReward)}</span> (${percentageFormatter(rewardPercent)} of ${poundFormatter(estimatedInvestment)})</i></div>`;
+            }
 
             outputEntries.push(`
            <div class="border border-success-subtle rounded p-3 double-space-before">
                 <div class="text-info"><i>Shares to buy: ${sharesToBuy}</i></div>
                 <div class="text-info"><i>Estimated Investment: ${poundFormatter(estimatedInvestment)}</i></div>
                 <div class="text-info"><i>Estimated Risk: <span class="text-danger">${poundFormatter(estimatedRisk)}</span> (<= ${poundFormatter(maxRisk / 100 * maxInvestment)} i.e. ${maxRisk}% of ${poundFormatter(maxInvestment)})</i></div>
-                <div class="text-info"><i>Estimated Reward: <span class="text-success">${poundFormatter(estimatedReward)}</span> (${percentageFormatter(rewardPercent)} of ${poundFormatter(estimatedInvestment)})</i></div>
+                ${estimatedRewardOut}
            </div>
            `);
         }
