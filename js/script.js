@@ -174,9 +174,9 @@ $(document).ready(function () {
     });
 
     $("#maxInvestment").on('input', function () {
-        const value = this.value.replace(/,/g, '');
+        let value = this.value.replace(/,/g, '');
         if (!isValidDecimal(value)) {
-            return;
+            value = value.slice(0, -1);
         }
         this.value = parseFloat(value).toLocaleString('en-US', {
             style: 'decimal',
