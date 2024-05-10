@@ -177,12 +177,15 @@ $(document).ready(function () {
         let value = this.value.replace(/,/g, '');
         if (!isValidDecimal(value)) {
             value = value.slice(0, -1);
+            this.value = value;
         }
-        this.value = parseFloat(value).toLocaleString('en-US', {
-            style: 'decimal',
-            minimumFractionDigits: 0,
-            maximumFractionDigits: 2
-        });
+        if (value.length > 0) {
+            this.value = parseFloat(value).toLocaleString('en-US', {
+                style: 'decimal',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 2
+            });
+        }
     });
 
 
