@@ -36,7 +36,7 @@ $(document).ready(function () {
 
         const maxInvestment = $("#maxInvestment").val().replace(/,/g, '');
         const maxRisk = $("#maxRisk").val();
-        if (maxInvestment) {
+        if (maxInvestment || maxRisk) {
             inputObjects.push({
                 id: "maxInvestment",
                 label: "Max Investment",
